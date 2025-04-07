@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const { email, title, body } = await req.json();
 
   if (!email || !title || !body) {
-    return NextResponse.json({ message: "No inputs" }, { status: 404 });
+    return NextResponse.json({ message: "No inputs" }, { status: 400 });
   }
 
   const user = await prisma.user.findUnique({ where: { email } });
