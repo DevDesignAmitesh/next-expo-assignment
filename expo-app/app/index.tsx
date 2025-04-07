@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <WebView
-        source={{ uri: "https://your-nextjs-deployed-url.com" }}
+        source={{ uri: "https://next-expo-assignment.vercel.app/auth" }}
         style={{ flex: 1 }}
       />
     </View>

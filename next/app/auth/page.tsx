@@ -1,11 +1,32 @@
 "use client";
 
 import React from "react";
-import { signIn } from "next-auth/react";
 import { Button, Box, Typography, Paper } from "@mui/material";
 import { GrGoogle } from "react-icons/gr";
 
+const isInWebView = (): boolean => {
+  const ua =
+    typeof navigator !== "undefined"
+      ? navigator.userAgent || navigator.vendor || (window as any).opera
+      : "";
+
+  return /\bwv\b/.test(ua) || /FBAN|FBAV|Instagram|Expo/.test(ua);
+};
+
 const SignInPage = () => {
+  const handleGoogleSignIn = () => {
+    const callbackUrl = encodeURIComponent("/");
+    const signInUrl = `/api/auth/signin/google?callbackUrl=${callbackUrl}`;
+
+    if (isInWebView()) {
+      // Force open in system browser if in WebView (Expo)
+      window.open(signInUrl, "_blank");
+    } else {
+      // Regular redirect
+      window.location.href = signInUrl;
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -31,7 +52,7 @@ const SignInPage = () => {
         </Typography>
 
         <Button
-          onClick={() => signIn("google", { callbackUrl: "/" })}
+          onClick={handleGoogleSignIn}
           variant="outlined"
           startIcon={<GrGoogle size={20} />}
           sx={{
