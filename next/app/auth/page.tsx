@@ -16,18 +16,25 @@ const isInWebView = (): boolean => {
 
 const SignInPage = () => {
   const handleGoogleSignIn = () => {
-    const callbackUrl = "/auth";
-    if (isInWebView()) {
-      const baseUrl =
-        process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin;
-      const signInUrl = `${baseUrl}/api/auth/signin/google?callbackUrl=${encodeURIComponent(
-        callbackUrl
-      )}`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin;
+    const callbackUrl = `${baseUrl}/auth`;
 
-      // Stay inside WebView
+    const signInUrl = `${baseUrl}/api/auth/signin/google?callbackUrl=${encodeURIComponent(
+      callbackUrl
+    )}`;
+
+    if (isInWebView()) {
+      // Force full page redirect for WebView
       window.location.href = signInUrl;
     } else {
-      signIn("google", { callbackUrl, redirect: false });
+      // Handle redirect manually
+      signIn("google", { callbackUrl, redirect: false }).then((res) => {
+        if (res?.url) {
+          window.location.href = res.url;
+        } else {
+          console.error("Google sign-in failed:", res);
+        }
+      });
     }
   };
 

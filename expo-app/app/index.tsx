@@ -55,6 +55,12 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <WebView
+        originWhitelist={["*"]}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        onNavigationStateChange={(navState) => {
+          console.log(navState.url); // see what's going on
+        }}
         source={{ uri: "https://next-expo-assignment.vercel.app/auth" }}
         style={{ flex: 1 }}
         onMessage={handleMessage}
