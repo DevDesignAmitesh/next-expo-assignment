@@ -16,18 +16,18 @@ const isInWebView = (): boolean => {
 
 const SignInPage = () => {
   const handleGoogleSignIn = () => {
-    const callbackUrl = "/";
+    const callbackUrl = "/auth";
     if (isInWebView()) {
-      // Force open system browser
       const baseUrl =
         process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin;
       const signInUrl = `${baseUrl}/api/auth/signin/google?callbackUrl=${encodeURIComponent(
         callbackUrl
       )}`;
-      window.open(signInUrl, "_blank");
+
+      // Stay inside WebView
+      window.location.href = signInUrl;
     } else {
-      // Use NextAuth's method (safer, POST-based)
-      signIn("google", { callbackUrl });
+      signIn("google", { callbackUrl, redirect: false });
     }
   };
 

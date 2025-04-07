@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304317259464",
+    "project_id": "expo-next-fcm-assignment",
+    "storage_bucket": "expo-next-fcm-assignment.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304317259464:android:42233c1a04a29fb3d74ffd",
+        "android_client_info": {
+          "package_name": "com.ami_tes_hsi_ngh.expoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwFJPqQtcFz76LCXB6lkNd5y2oXFQu_QE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
