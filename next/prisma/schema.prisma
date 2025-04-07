@@ -12,4 +12,5 @@ model User {
   fullName String
   email    String @unique
   image    String
+  token    String @default("")
 }
