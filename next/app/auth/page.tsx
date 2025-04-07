@@ -19,9 +19,11 @@ const SignInPage = () => {
     const callbackUrl = "/";
     if (isInWebView()) {
       // Force open system browser
-      const signInUrl = `${
-        process.env.NEXT_PUBLIC_BASE_URL
-      }/api/auth/signin/google?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+      const baseUrl =
+        process.env.NEXT_PUBLIC_BASE_URL ?? window.location.origin;
+      const signInUrl = `${baseUrl}/api/auth/signin/google?callbackUrl=${encodeURIComponent(
+        callbackUrl
+      )}`;
       window.open(signInUrl, "_blank");
     } else {
       // Use NextAuth's method (safer, POST-based)
