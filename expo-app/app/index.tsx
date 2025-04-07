@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
 import messaging from "@react-native-firebase/messaging";
 
 export default function Index() {
   const [email, setEmail] = useState<string | null>(null);
-  const webviewRef = useRef(null);
 
   const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
@@ -56,7 +55,6 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <WebView
-        ref={webviewRef}
         source={{ uri: "https://next-expo-assignment.vercel.app/auth" }}
         style={{ flex: 1 }}
         onMessage={handleMessage}
