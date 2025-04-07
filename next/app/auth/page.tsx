@@ -3,6 +3,7 @@
 import React from "react";
 import { Button, Box, Typography, Paper } from "@mui/material";
 import { GrGoogle } from "react-icons/gr";
+import { signIn } from "next-auth/react";
 
 const isInWebView = (): boolean => {
   const ua =
@@ -15,15 +16,16 @@ const isInWebView = (): boolean => {
 
 const SignInPage = () => {
   const handleGoogleSignIn = () => {
-    const callbackUrl = encodeURIComponent("/");
-    const signInUrl = `/api/auth/signin/google?callbackUrl=${callbackUrl}`;
-
+    const callbackUrl = "/";
     if (isInWebView()) {
-      // Force open in system browser if in WebView (Expo)
+      // Force open system browser
+      const signInUrl = `${
+        process.env.NEXT_PUBLIC_BASE_URL
+      }/api/auth/signin/google?callbackUrl=${encodeURIComponent(callbackUrl)}`;
       window.open(signInUrl, "_blank");
     } else {
-      // Regular redirect
-      window.location.href = signInUrl;
+      // Use NextAuth's method (safer, POST-based)
+      signIn("google", { callbackUrl });
     }
   };
 
